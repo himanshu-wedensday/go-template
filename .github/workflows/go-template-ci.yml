@@ -25,6 +25,11 @@ jobs:
       - name: Get branch name
         id: vars
         run: echo ::set-output name=branch::${{ github.event.pull_request.head.ref }}
+      - name: Update Dependencies
+        run: |
+          go mod tidy
+          go clean -modcache
+
       - name: Install pre-commit dependencies
         run: |
           go install github.com/fzipp/gocyclo/cmd/gocyclo@latest
