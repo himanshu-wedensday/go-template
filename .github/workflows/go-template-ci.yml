@@ -25,11 +25,10 @@ jobs:
       - name: Get branch name
         id: vars
         run: echo ::set-output name=branch::${{ github.event.pull_request.head.ref }}
-      - name: Update Dependencies
+      - name: Set GOROOT and GOPATH
         run: |
-          go mod tidy
-          go clean -modcache
-
+          echo "export GOROOT=/usr/local/go" >> $GITHUB_ENV
+          echo "export GOPATH=$HOME/go" >> $GITHUB_ENV
       - name: Install pre-commit dependencies
         run: |
           go install github.com/fzipp/gocyclo/cmd/gocyclo@latest
