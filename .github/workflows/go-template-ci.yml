@@ -40,8 +40,7 @@ jobs:
       - name: Test
         run:  ./scripts/test.sh
       - name: Keploy test
-        run:  curl -O https://raw.githubusercontent.com/keploy/keploy/main/keploy.sh && source keploy.sh && keploy
-        run: keploy test -c "go run cmd/server/main.go" --delay 10
+        run:  ./scripts/keploy_ci.sh
       # - uses: codecov/codecov-action@v2
       #   with:
       #     token: ${{ secrets.CODECOV_TOKEN }}
