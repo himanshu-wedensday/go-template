@@ -22,8 +22,9 @@ import (
 type key string
 
 var (
-	UserKey key = "user"
+	UserKey   key = "user"
 	AuthorKey key = "author"
+	PostKey   key = "posts"
 )
 
 const (
@@ -41,6 +42,7 @@ var MockCount = int64(1)
 var MockJWTSecret = "1234567890123456789012345678901234567890123456789012345678901234567890"
 var MockQuery = `{"query":"query users { users { users { id } } }","variables":{}}"`
 var MockWhitelistedQuery = `{"query":"query Schema {  __schema { queryType { kind } } }","variables":{}}"`
+var MockPostContent = "Hello Test Post"
 
 func MockUser() *models.User {
 	return &models.User{
@@ -184,6 +186,25 @@ func MockAuthors() []*models.Author {
 			FirstName: null.StringFrom("First"),
 			LastName:  null.StringFrom("Last"),
 			Email:     null.StringFrom(MockEmail),
+		},
+	}
+
+}
+
+func MockPost() *models.Post {
+	return &models.Post{
+		ID:        MockID,
+		Post:      MockPostContent,
+		AuthorID:  MockID,
+		DeletedAt: null.NewTime(time.Time{}, false),
+		UpdatedAt: null.NewTime(time.Time{}, false),
+	}
+}
+func MockPosts() []*models.Post {
+	return []*models.Post{
+		{
+			Post:     MockPostContent,
+			AuthorID: MockID,
 		},
 	}
 

@@ -19,6 +19,8 @@ import (
 	"github.com/volatiletech/sqlboiler/v4/queries/qm"
 	"github.com/volatiletech/sqlboiler/v4/queries/qmhelper"
 	"github.com/volatiletech/strmangle"
+	"github.com/volatiletech/null/v8"
+
 )
 
 // Post is an object representing the database table.
@@ -26,7 +28,9 @@ type Post struct {
 	ID       int    `boil:"id" json:"id" toml:"id" yaml:"id"`
 	AuthorID int    `boil:"author_id" json:"author_id" toml:"author_id" yaml:"author_id"`
 	Post     string `boil:"post" json:"post" toml:"post" yaml:"post"`
-
+	CreatedAt null.Time   `boil:"created_at" json:"created_at,omitempty" toml:"created_at" yaml:"created_at,omitempty"`
+	UpdatedAt null.Time   `boil:"updated_at" json:"updated_at,omitempty" toml:"updated_at" yaml:"updated_at,omitempty"`
+	DeletedAt null.Time   `boil:"deleted_at" json:"deleted_at,omitempty" toml:"deleted_at" yaml:"deleted_at,omitempty"`
 	R *postR `boil:"-" json:"-" toml:"-" yaml:"-"`
 	L postL  `boil:"-" json:"-" toml:"-" yaml:"-"`
 }
@@ -35,20 +39,32 @@ var PostColumns = struct {
 	ID       string
 	AuthorID string
 	Post     string
+	CreatedAt string
+	UpdatedAt string
+	DeletedAt string
 }{
 	ID:       "id",
 	AuthorID: "author_id",
 	Post:     "post",
+	CreatedAt: "created_at",
+	UpdatedAt: "updated_at",
+	DeletedAt: "deleted_at",
 }
 
 var PostTableColumns = struct {
 	ID       string
 	AuthorID string
 	Post     string
+	CreatedAt string
+	UpdatedAt string
+	DeletedAt string
 }{
 	ID:       "posts.id",
 	AuthorID: "posts.author_id",
 	Post:     "posts.post",
+	CreatedAt: "posts.created_at",
+	UpdatedAt: "posts.updated_at",
+	DeletedAt: "posts.deleted_at",
 }
 
 // Generated where
